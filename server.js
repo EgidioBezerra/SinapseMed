@@ -11,7 +11,13 @@ app.get('/health', (req, res) => {
   res.status(200).json({ message: 'API está funcionando!' });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
+// Inicia o servidor somente se o arquivo for executado diretamente
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+  });
+}
+
+// Exporta o app para uso em testes
+module.exports = app;
